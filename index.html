@@ -7,9 +7,10 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <script>
 tailwind.config = {
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -62,9 +63,9 @@ html, body { height: 100%; margin: 0; }
 [data-animate].visible { opacity: 1; }
 
 .hero-bg {
-  background: linear-gradient(135deg, #0C356A 0%, #1a5fb4 40%, #2874c4 70%, #0C356A 100%);
   position: relative;
   overflow: hidden;
+  background: #0f448b; /* Mengubah menjadi warna biru flat */
 }
 .hero-bg::before {
   content: '';
@@ -83,6 +84,9 @@ html, body { height: 100%; margin: 0; }
   right: 0;
   height: 80px;
   background: linear-gradient(to top, #f8fafc, transparent);
+}
+.dark .hero-bg::after {
+  background: linear-gradient(to top, #0f172a, transparent);
 }
 
 .card-hover {
@@ -107,6 +111,9 @@ html, body { height: 100%; margin: 0; }
   background: #0C356A;
   transition: width 0.3s;
 }
+.dark .nav-link::after {
+  background: #38bdf8;
+}
 .nav-link:hover::after { width: 100%; }
 
 .btn-primary {
@@ -129,278 +136,245 @@ html, body { height: 100%; margin: 0; }
   background-image: radial-gradient(circle, #0C356A08 1px, transparent 1px);
   background-size: 24px 24px;
 }
+.dark .grid-pattern {
+  background-image: radial-gradient(circle, #ffffff05 1px, transparent 1px);
+}
 </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full font-jakarta bg-slate-50 text-slate-800">
-  <div id="app-wrapper" class="h-full w-full overflow-auto"><!-- Navbar -->
-   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:transparent;">
+ <body class="h-full font-jakarta bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
+  <div id="app-wrapper" class="h-full w-full overflow-auto"><nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0C356A] shadow-md">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16"><a href="#hero" class="flex items-center gap-2 font-bold text-lg">
-      
-  <!-- Logo 1 -->
-  <img src="unipa.png"Logo 1" class="w-8 h-8 object-contain">
+  <img src="unipa.png" alt="Logo 1" class="w-8 h-8 object-contain">
 
-  <!-- Judul -->
   <span id="nav-title" class="text-white">E-Portfolio</span>
-
-</a>
-     <div class="hidden md:flex items-center gap-6 text-sm font-medium" id="nav-links-desktop"><a href="#profil" class="nav-link text-white/80 hover:text-white">Profil</a> <a href="#artefak" class="nav-link text-white/80 hover:text-white">Artefak</a> <a href="#refleksi" class="nav-link text-white/80 hover:text-white">Refleksi</a> <a href="#penilaian" class="nav-link text-white/80 hover:text-white">Penilaian</a> <a href="#model-guru" class="nav-link text-white/80 hover:text-white">Model Guru</a> <a href="#kontak" class="px-4 py-2 rounded-full text-sm font-semibold bg-white text-[#0C356A] hover:bg-blue-50 transition">Hubungi Saya</a>
-     </div><button id="mobile-menu-btn" class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg border-t">
-     <div class="flex flex-col p-4 gap-3 text-sm font-medium text-slate-700"><a href="#profil" onclick="closeMobile()">Profil</a> <a href="#artefak" onclick="closeMobile()">Artefak</a> <a href="#refleksi" onclick="closeMobile()">Refleksi</a> <a href="#penilaian" onclick="closeMobile()">Penilaian</a> <a href="#model-guru" onclick="closeMobile()">Model Guru</a> <a href="#kontak" onclick="closeMobile()" class="btn-primary text-white text-center py-2 rounded-lg">Hubungi Saya</a>
+ </a>
+     <div class="hidden md:flex items-center gap-6 text-sm font-medium" id="nav-links-desktop">
+       <a href="#profil" class="nav-link text-white/80 hover:text-white">Profil</a> 
+       <a href="#artefak" class="nav-link text-white/80 hover:text-white">Artefak</a> 
+       <a href="#refleksi" class="nav-link text-white/80 hover:text-white">Refleksi</a> 
+       <a href="#penilaian" class="nav-link text-white/80 hover:text-white">Penilaian</a> 
+       <a href="#model-guru" class="nav-link text-white/80 hover:text-white">Model Guru</a> 
+       <a href="#galeri" class="nav-link text-white/80 hover:text-white">Dokumentasi</a> 
+       <a href="#kontak" class="px-4 py-2 rounded-full text-sm font-semibold bg-white text-[#0C356A] hover:bg-blue-50 transition">Hubungi Saya</a>
+       <button onclick="toggleDarkMode()" class="p-2 rounded-full text-white hover:bg-white/10 transition" title="Ubah Mode">
+         <i data-lucide="sun" id="theme-icon-desktop" class="w-5 h-5"></i>
+       </button>
+     </div>
+     <div class="flex items-center gap-2 md:hidden">
+       <button onclick="toggleDarkMode()" class="p-2 rounded-full text-white hover:bg-white/10 transition" title="Ubah Mode">
+         <i data-lucide="sun" id="theme-icon-mobile" class="w-5 h-5"></i>
+       </button>
+       <button id="mobile-menu-btn" class="text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
      </div>
     </div>
-   </nav><!-- Hero -->
-   <section id="hero" class="hero-bg relative" style="min-height: 100%;">
-    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 pt-24 pb-32" style="min-height:100%;"><!-- Profile Frame 1:1 -->
-<div class="anim-scale-in mb-6">
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-lg border-t dark:border-slate-700">
+     <div class="flex flex-col p-4 gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+       <a href="#profil" onclick="closeMobile()">Profil</a> 
+       <a href="#artefak" onclick="closeMobile()">Artefak</a> 
+       <a href="#refleksi" onclick="closeMobile()">Refleksi</a> 
+       <a href="#penilaian" onclick="closeMobile()">Penilaian</a> 
+       <a href="#model-guru" onclick="closeMobile()">Model Guru</a>
+       <a href="#galeri" onclick="closeMobile()">Dokumentasi</a>  
+       <a href="#kontak" onclick="closeMobile()" class="btn-primary text-white text-center py-2 rounded-lg">Hubungi Saya</a>
+     </div>
+    </div>
+   </nav><section id="hero" class="hero-bg relative" style="min-height: 100%;">
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 pt-24 pb-32" style="min-height:100%;"><div class="anim-scale-in mb-6">
   <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center anim-float overflow-hidden">
-    <img src="naf2.jpeg" alt="Profile" class="w-full h-full object-cover">
+    <img src="foto1.png" alt="Profile" class="w-full h-full object-cover">
   </div>
 </div>
      <h1 id="hero-title" class="anim-fade-up delay-2 text-3xl sm:text-4xl md:text-5xl font-playfair font-light text-white leading-tight mb-4">PPG CALON GURU</h1>
      <div class="anim-fade-up delay-3 w-16 h-0.5 bg-yellow-400 mx-auto mb-5"></div>
      <p id="hero-slogan" class="anim-fade-up delay-4 text-lg sm:text-xl md:text-2xl text-blue-100 font-light max-w-xl mb-10">Nafkhan Fitra Hafidhi</p>
      <div class="anim-fade-up delay-5 flex flex-wrap justify-center gap-3"><a href="#profil" class="px-6 py-3 rounded-full bg-white text-[#0C356A] font-semibold text-sm hover:bg-blue-50 transition shadow-lg shadow-black/10 flex items-center gap-2"> <i data-lucide="user" class="w-4 h-4"></i> Profil </a> <a href="#model-guru" class="px-6 py-3 rounded-full border-2 border-white/40 text-white font-semibold text-sm hover:bg-white/10 transition flex items-center gap-2"> <i data-lucide="award" class="w-4 h-4"></i> Model Guru </a> <a href="#kontak" class="px-6 py-3 rounded-full border-2 border-yellow-400/60 text-yellow-300 font-semibold text-sm hover:bg-yellow-400/10 transition flex items-center gap-2"> <i data-lucide="mail" class="w-4 h-4"></i> Hubungi Saya </a>
-     </div><!-- Scroll indicator -->
-     <div class="anim-fade-in delay-6 absolute bottom-12 left-1/2 -translate-x-1/2"><a href="#profil" class="flex flex-col items-center gap-1 text-white/50 hover:text-white/80 transition"> <span class="text-xs tracking-wider">Scroll</span> <i data-lucide="chevron-down" class="w-5 h-5 animate-bounce"></i> </a>
+     </div><div class="anim-fade-in delay-6 absolute bottom-12 left-1/2 -translate-x-1/2"><a href="#profil" class="flex flex-col items-center gap-1 text-white/50 hover:text-white/80 transition"> <span class="text-xs tracking-wider">Scroll</span> <i data-lucide="chevron-down" class="w-5 h-5 animate-bounce"></i> </a>
      </div>
     </div>
-    <!-- Carousel Profil 16:9 -->
-<div class="w-full max-w-4xl mx-auto mb-12 relative" id="carousel-profil">
-
-  <div class="aspect-video rounded-2xl border-4 border-white shadow-xl overflow-hidden relative">
-    
-    <!-- Track -->
-    <div class="flex transition-transform duration-700 ease-in-out" id="carousel-track-profil">
-      
-      <img src="photonaf.jpeg">
-    </div>
-
-    <!-- Overlay -->
     <div class="absolute inset-0 bg-black/10"></div>
-
-    
-   </section><!-- Profil -->
-   <section id="profil" class="py-20 px-4 sm:px-6 grid-pattern">
+   </section><section id="profil" class="py-20 px-4 sm:px-6 grid-pattern">
     <div class="max-w-5xl mx-auto" data-animate>
      <div class="text-center mb-14">
-      <p class="text-sm font-semibold text-[#0C356A] tracking-widest uppercase mb-2">Tentang Saya</p>
-      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 mb-3">Profil Mahasiswa</h2>
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Tentang Saya</p>
+      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Profil Mahasiswa</h2>
       <div class="section-line mx-auto"></div>
      </div>
-     <div class="grid md:grid-cols-5 gap-8 items-start"><!-- Avatar Card -->
-      <div class="md:col-span-2 flex justify-center">
-       <div class="bg-white rounded-2xl shadow-lg p-8 text-center card-hover w-full max-w-xs">
-        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-[#0C356A] via-[#1a5fb4] to-[#2874c4] flex items-center justify-center mb-5 shadow-lg relative overflow-hidden"><!-- Profile avatar with initials design -->
-         <div class="absolute inset-0 flex items-center justify-center"> <img src ="naf2.jpeg" width="1000%" height="1000%" <span class="text-5xl font-bold text-white"></span>
-         </div><!-- Decorative elements -->
-        </div>
-        <h3 id="profile-name-display" class="text-xl font-bold text-slate-900 mb-1">Nafkhan Fitra Hafidhi</h3>
-        <p class="text-sm text-[#1a5fb4] font-medium mb-4">Biodata Mahasiswa</p>
-        <div class="flex justify-center gap-3"><span class="px-3 py-1 bg-blue-50 text-[#0C356A] rounded-full text-xs font-medium">Pendidikan Jasmani Olahraga dan Kesehatan</span> <span class="px-3 py-1 bg-blue-50 text-[#0C356A] rounded-full text-xs font-medium">Universitas PGRI Adi Buana Surabaya</span>
+     <div class="grid md:grid-cols-5 gap-8 items-start"><div class="md:col-span-2 flex justify-center">
+       <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 text-center card-hover w-full max-w-xs">
+        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-[#0C356A] via-[#1a5fb4] to-[#2874c4] flex items-center justify-center mb-5 shadow-lg relative overflow-hidden"><div class="absolute inset-0 flex items-center justify-center"> <img src ="foto1.png" class="w-full h-full object-cover">
+         </div></div>
+        <h3 id="profile-name-display" class="text-xl font-bold text-slate-900 dark:text-white mb-1">Nafkhan Fitra Hafidhi</h3>
+        <p class="text-sm text-[#1a5fb4] dark:text-blue-400 font-medium mb-4">Biodata Mahasiswa</p>
+        <div class="flex justify-center gap-3 flex-wrap">
+          <span class="px-3 py-1 bg-blue-50 dark:bg-slate-700 text-[#0C356A] dark:text-blue-300 rounded-full text-xs font-medium">Pendidikan Jasmani Olahraga dan Kesehatan</span> 
+          <span class="px-3 py-1 bg-blue-50 dark:bg-slate-700 text-[#0C356A] dark:text-blue-300 rounded-full text-xs font-medium">Universitas PGRI Adi Buana Surabaya</span>
         </div>
        </div>
-      </div><!-- Info -->
-      <div class="md:col-span-3 space-y-5">
-       <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#0C356A]">
+      </div><div class="md:col-span-3 space-y-5">
+       <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#0C356A]">
         <div class="flex items-start gap-3">
-         <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0"><i data-lucide="target" class="w-5 h-5 text-[#0C356A]"></i>
+         <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-700 flex items-center justify-center flex-shrink-0"><i data-lucide="target" class="w-5 h-5 text-[#0C356A] dark:text-blue-400"></i>
          </div>
          <div>
-          <h4 class="font-bold text-slate-900 mb-1">Daerah Asal</h4>
-          <p class="text-sm text-slate-600 leading-relaxed text-justify">Kabupaten Ngawi unik karena letaknya di perbatasan Jawa Timur–Jawa Tengah, memadukan budaya khas. Ikonnya Benteng Van Den Bosch dan Tempuran Ngawi. Dikenal sebagai lumbung padi, serta memiliki wisata alam indah seperti Air Terjun Srambang dan Kebun Teh Jamus.</p>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1">Daerah Asal</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-justify">Kabupaten Ngawi unik karena letaknya di perbatasan Jawa Timur–Jawa Tengah, memadukan budaya khas. Ikonnya Benteng Van Den Bosch dan Tempuran Ngawi. Dikenal sebagai lumbung padi, serta memiliki wisata alam indah seperti Air Terjun Srambang dan Kebun Teh Jamus.</p>
          </div>
         </div>
        </div>
-       <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#2874c4]">
+       <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#2874c4]">
         <div class="flex items-start gap-3">
-         <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0"><i data-lucide="compass" class="w-5 h-5 text-[#2874c4]"></i>
+         <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-700 flex items-center justify-center flex-shrink-0"><i data-lucide="compass" class="w-5 h-5 text-[#2874c4] dark:text-blue-400"></i>
          </div>
          <div>
-          <h4 class="font-bold text-slate-900 mb-1">Tujuan</h4>
-          <p class="text-sm text-slate-600 leading-relaxed text-justify">Tujuan guru di masa sekarang adalah tidak hanya menyampaikan materi, tetapi juga membentuk karakter dan keterampilan abad ke-21 seperti berpikir kritis, kreatif, kolaboratif, dan komunikatif. Guru berperan sebagai fasilitator yang mampu memanfaatkan teknologi serta menanamkan nilai-nilai Pancasila dalam kehidupan sehari-hari. Selain itu, guru harus memahami perbedaan karakteristik siswa melalui pembelajaran yang inklusif dan berdiferensiasi. Di masa yang akan datang, tujuan guru berkembang menjadi pembimbing (mentor) yang membantu siswa menyaring informasi dan beradaptasi dengan perkembangan teknologi. Guru juga berperan menumbuhkan sikap pembelajar sepanjang hayat. Dengan demikian, guru diharapkan mampu menciptakan generasi yang cerdas, berkarakter, dan siap menghadapi perubahan zaman.</p>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1">Tujuan</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-justify">Tujuan guru di masa sekarang adalah tidak hanya menyampaikan materi, tetapi juga membentuk karakter dan keterampilan abad ke-21 seperti berpikir kritis, kreatif, kolaboratif, dan komunikatif. Guru berperan sebagai fasilitator yang mampu memanfaatkan teknologi serta menanamkan nilai-nilai Pancasila dalam kehidupan sehari-hari. Selain itu, guru harus memahami perbedaan karakteristik siswa melalui pembelajaran yang inklusif dan berdiferensiasi. Di masa yang akan datang, tujuan guru berkembang menjadi pembimbing (mentor) yang membantu siswa menyaring informasi dan beradaptasi dengan perkembangan teknologi. Guru juga berperan menumbuhkan sikap pembelajar sepanjang hayat. Dengan demikian, guru diharapkan mampu menciptakan generasi yang cerdas, berkarakter, dan siap menghadapi perubahan zaman.</p>
          </div>
         </div>
        </div>
-       <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#FFD700]">
+       <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 card-hover border-l-4 border-[#FFD700]">
         <div class="flex items-start gap-3">
-         <div class="w-10 h-10 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0"><i data-lucide="flame" class="w-5 h-5 text-yellow-600"></i>
+         <div class="w-10 h-10 rounded-lg bg-yellow-50 dark:bg-slate-700 flex items-center justify-center flex-shrink-0"><i data-lucide="flame" class="w-5 h-5 text-yellow-600 dark:text-yellow-400"></i>
          </div>
          <div>
-          <h4 class="font-bold text-slate-900 mb-1">Motivasi</h4>
-          <p class="text-sm text-slate-600 leading-relaxed text-justify">Motivasi menjadi guru yang berkesan serta membangun pemikiran kedepan. Menjadi guru bukan sekadar profesi, tetapi panggilan untuk membentuk masa depan. Motivasi menjadi guru yang berkesan lahir dari kesadaran bahwa setiap kata, sikap, dan tindakan kita dapat meninggalkan jejak dalam kehidupan siswa. Guru yang bermakna bukan hanya menyampaikan materi, tetapi juga menanamkan nilai, membangun karakter, dan menginspirasi semangat belajar sepanjang hayat.Untuk membangun pemikiran ke depan, guru perlu terus berkembang, adaptif terhadap perubahan zaman, serta melek teknologi dan sosial. Pendidikan hari ini tidak lagi hanya berfokus pada pengetahuan, tetapi juga pada kreativitas, kolaborasi, dan kemampuan berpikir kritis. Oleh karena itu, guru harus menjadi pembelajar sejati yang terbuka terhadap inovasi.Dengan semangat itu, guru dapat menjadi agen perubahan yang mampu menciptakan generasi yang cerdas, berakhlak, dan siap menghadapi tantangan masa depan. Guru yang berkesan adalah mereka yang tidak hanya mengajar, tetapi juga menghidupkan harapan.</p>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1">Motivasi</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-justify">Motivasi menjadi guru yang berkesan serta membangun pemikiran kedepan. Menjadi guru bukan sekadar profesi, tetapi panggilan untuk membentuk masa depan. Motivasi menjadi guru yang berkesan lahir dari kesadaran bahwa setiap kata, sikap, dan tindakan kita dapat meninggalkan jejak dalam kehidupan siswa. Guru yang bermakna bukan hanya menyampaikan materi, tetapi juga menanamkan nilai, membangun karakter, dan menginspirasi semangat belajar sepanjang hayat.Untuk membangun pemikiran ke depan, guru perlu terus berkembang, adaptif terhadap perubahan zaman, serta melek teknologi dan sosial. Pendidikan hari ini tidak lagi hanya berfokus pada pengetahuan, tetapi juga pada kreativitas, kolaborasi, dan kemampuan berpikir kritis. Oleh karena itu, guru harus menjadi pembelajar sejati yang terbuka terhadap inovasi.Dengan semangat itu, guru dapat menjadi agen perubahan yang mampu menciptakan generasi yang cerdas, berakhlak, dan siap menghadapi tantangan masa depan. Guru yang berkesan adalah mereka yang tidak hanya mengajar, tetapi juga menghidupkan harapan.</p>
          </div>
         </div>
        </div>
       </div>
      </div>
     </div>
-   </section><!-- Artefak -->
-   <section id="artefak" class="py-20 px-4 sm:px-6 bg-white">
+   </section>
+   
+   <section id="artefak" class="py-20 px-4 sm:px-6 bg-white dark:bg-slate-850 bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
     <div class="max-w-5xl mx-auto" data-animate>
-     <div class="text-center mb-14">
-      <p class="text-sm font-semibold text-[#0C356A] tracking-widest uppercase mb-2">Hasil Karya</p>
-      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 mb-3">Artefak Pembelajaran</h2>
-      <div class="section-line mx-auto"></div>
+     <div class="text-center mb-8">
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Hasil Karya</p>
+      <h2 id="artefak-title" class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Artefak Pembelajaran</h2>
+      <div class="section-line mx-auto mb-6"></div>
+      
+      <div class="flex justify-center gap-2 md:gap-4 max-w-md mx-auto bg-slate-100 dark:bg-slate-700 p-1.5 rounded-xl border dark:border-slate-600">
+        <button onclick="switchSiklus(1)" id="tab-siklus-1" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 bg-[#0C356A] text-white shadow-sm">Siklus 1</button>
+        <button onclick="switchSiklus(2)" id="tab-siklus-2" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-600">Siklus 2</button>
+        <button onclick="switchSiklus(3)" id="tab-siklus-3" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-600">Siklus 3</button>
+      </div>
      </div>
-     <div class="grid sm:grid-cols-2 gap-6">
-      <div class="group bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 card-hover border border-slate-100">
-       <div class="w-12 h-12 rounded-xl bg-[#0C356A] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><i data-lucide="file-text" class="w-6 h-6 text-white"></i>
-       </div>
-       <h3 class="text-lg font-bold text-slate-900 mb-2">Rencana Pelaksanaan Pembelajaran</h3>
-       <p class="text-sm text-slate-600 leading-relaxed mb-4">RPP yang dirancang sesuai kurikulum merdeka dengan pendekatan diferensiasi untuk memenuhi kebutuhan belajar setiap siswa.</p><a href="https://drive.google.com/drive/folders/1dDW62EwTRs6yHPnSNw-wTg5-4hy3lEjV?usp=sharing
 
-folder" target="_blank"
-   class="inline-flex items-center gap-1 text-[#0C356A] text-sm font-semibold group-hover:gap-2 transition-all hover:underline">
-  Lihat Detail 
-  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-</a>
-      </div>
-      <div class="group bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 card-hover border border-slate-100">
-       <div class="w-12 h-12 rounded-xl bg-[#1a5fb4] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><i data-lucide="play-circle" class="w-6 h-6 text-white"></i>
+     <div id="artefak-content" class="grid sm:grid-cols-2 gap-6 transition-all duration-300">
        </div>
-       <h3 class="text-lg font-bold text-slate-900 mb-2">Video Media Pembelajaran</h3>
-       <p class="text-sm text-slate-600 leading-relaxed mb-4">Media interaktif pembelajaran yang menarik untuk meningkatkan pemahaman dan keterlibatan peserta didik.</p><a href="https://youtu.be/5Yu8pxJsESw" target="_blank"
-   class="inline-flex items-center gap-1 text-[#0C356A] text-sm font-semibold group-hover:gap-2 transition-all hover:underline">
-  Lihat Detail 
-  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-</a>
-      </div>
-      <div class="group bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 card-hover border border-slate-100">
-       <div class="w-12 h-12 rounded-xl bg-[#2874c4] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><i data-lucide="clipboard-check" class="w-6 h-6 text-white"></i>
-       </div>
-       <h3 class="text-lg font-bold text-slate-900 mb-2">Contoh Hasil Kerja Murid</h3>
-       <p class="text-sm text-slate-600 leading-relaxed mb-4">Dokumentasi hasil kerja peserta didik yang menunjukkan pencapaian kompetensi dan perkembangan kemampuan berpikir.</p><a href="https://www.youtube.com/watch?v=jfrE-fT_4No&t=14s" target="_blank"
-   class="inline-flex items-center gap-1 text-[#0C356A] text-sm font-semibold group-hover:gap-2 transition-all hover:underline">
-  Lihat Detail 
-  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-</a>
-      </div>
-      <div class="group bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 card-hover border border-slate-100">
-       <div class="w-12 h-12 rounded-xl bg-[#0C356A] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><i data-lucide="bar-chart-3" class="w-6 h-6 text-white"></i>
-       </div>
-       <h3 class="text-lg font-bold text-slate-900 mb-2">Penilaian GP dan DPL</h3>
-       <p class="text-sm text-slate-600 leading-relaxed mb-4">Instrumen asesmen formatif dan sumatif yang valid dan reliabel untuk mengukur ketercapaian tujuan pembelajaran oleh GP (Guru Pamong) dan DPL (Dosen Pembimbing Lapangan)</p><a href="https://www.youtube.com/watch?v=jfrE-fT_4No&t=14s" target="_blank"
-   class="inline-flex items-center gap-1 text-[#0C356A] text-sm font-semibold group-hover:gap-2 transition-all hover:underline">
-  Lihat Detail 
-  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-</a>
-      </div>
-     </div>
     </div>
-   </section><!-- Refleksi -->
+   </section>
+   
    <section id="refleksi" class="py-20 px-4 sm:px-6 grid-pattern">
     <div class="max-w-4xl mx-auto" data-animate>
      <div class="text-center mb-14">
-      <p class="text-sm font-semibold text-[#0C356A] tracking-widest uppercase mb-2">Evaluasi Diri</p>
-      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 mb-3">Refleksi Pembelajaran</h2>
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Evaluasi Diri</p>
+      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Refleksi Pembelajaran</h2>
       <div class="section-line mx-auto"></div>
      </div>
-     <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
       <div class="bg-gradient-to-r from-[#0C356A] to-[#1a5fb4] px-6 py-5">
-       <h3 class="text-white font-bold text-lg flex items-center gap-2"><i data-lucide="lightbulb" class="w-5 h-5 text-yellow-300"></i> Analisis &amp; Refleksi Produk Pembelajaran</h3>
+       <h3 class="text-white font-bold text-lg flex items-center gap-2"><i data-lucide="lightbulb" class="w-5 h-5 text-yellow-300"></i> Analisis & Refleksi Produk Pembelajaran</h3>
       </div>
       <div class="p-6 sm:p-8 space-y-6">
        <div class="flex gap-4">
-        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] font-bold text-sm">1</span>
+        <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] dark:text-blue-400 font-bold text-sm">1</span>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 mb-1">Kekuatan</h4>
-         <p class="text-sm text-slate-600 leading-relaxed">Produk pembelajaran yang dihasilkan telah mengintegrasikan teknologi dengan baik dan mampu meningkatkan partisipasi aktif peserta didik dalam proses belajar mengajar.</p>
+         <h4 class="font-bold text-slate-900 dark:text-white mb-1">Kekuatan</h4>
+         <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Produk pembelajaran yang dihasilkan telah mengintegrasikan teknologi dengan baik dan mampu meningkatkan partisipasi aktif peserta didik dalam proses belajar mengajar.</p>
         </div>
        </div>
        <div class="flex gap-4">
-        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] font-bold text-sm">2</span>
+        <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] dark:text-blue-400 font-bold text-sm">2</span>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 mb-1">Area Pengembangan</h4>
-         <p class="text-sm text-slate-600 leading-relaxed">Perlu peningkatan dalam aspek diferensiasi konten untuk mengakomodasi keberagaman gaya belajar dan kemampuan awal peserta didik yang berbeda-beda.</p>
+         <h4 class="font-bold text-slate-900 dark:text-white mb-1">Area Pengembangan</h4>
+         <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Perlu peningkatan dalam aspek diferensiasi konten untuk mengakomodasi keberagaman gaya belajar dan kemampuan awal peserta didik yang berbeda-beda.</p>
         </div>
        </div>
        <div class="flex gap-4">
-        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] font-bold text-sm">3</span>
+        <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-[#0C356A] dark:text-blue-400 font-bold text-sm">3</span>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 mb-1">Rencana Tindak Lanjut</h4>
-         <p class="text-sm text-slate-600 leading-relaxed">Mengembangkan variasi strategi asesmen dan memperkaya media pembelajaran berbasis proyek untuk mendorong kolaborasi dan kreativitas siswa.</p>
+         <h4 class="font-bold text-slate-900 dark:text-white mb-1">Rencana Tindak Lanjut</h4>
+         <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Mengembangkan variasi strategi asesmen dan memperkaya media pembelajaran berbasis proyek untuk mendorong kolaborasi dan kreativitas siswa.</p>
         </div>
        </div>
       </div>
      </div>
     </div>
-   </section><!-- Penilaian -->
-   <section id="penilaian" class="py-20 px-4 sm:px-6 bg-white">
+   </section><section id="penilaian" class="py-20 px-4 sm:px-6 bg-white dark:bg-slate-900">
     <div class="max-w-5xl mx-auto" data-animate>
      <div class="text-center mb-14">
-      <p class="text-sm font-semibold text-[#0C356A] tracking-widest uppercase mb-2">Evaluasi Kinerja</p>
-      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 mb-3">Penilaian Guru Pamong</h2>
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Evaluasi Kinerja</p>
+      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Penilaian Guru Pamong</h2>
       <div class="section-line mx-auto"></div>
      </div>
      <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-gradient-to-b from-slate-50 to-white rounded-2xl border border-slate-200 overflow-hidden card-hover">
+      <div class="bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden card-hover">
        <div class="bg-[#0C356A] text-white text-center py-4">
         <p class="text-sm font-medium text-blue-200">Siklus</p>
         <p class="text-4xl font-bold">1</p>
        </div>
        <div class="p-6 space-y-3">
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Pedagogik</span><span class="font-semibold text-slate-900">82</span>
+         <span class="text-slate-500 dark:text-slate-400">Pedagogik</span><span class="font-semibold text-slate-900 dark:text-white">82</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#0C356A] h-2 rounded-full" style="width:82%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Profesional</span><span class="font-semibold text-slate-900">78</span>
+         <span class="text-slate-500 dark:text-slate-400">Profesional</span><span class="font-semibold text-slate-900 dark:text-white">78</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#1a5fb4] h-2 rounded-full" style="width:78%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Sosial</span><span class="font-semibold text-slate-900">85</span>
+         <span class="text-slate-500 dark:text-slate-400">Sosial</span><span class="font-semibold text-slate-900 dark:text-white">85</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#2874c4] h-2 rounded-full" style="width:85%"></div>
         </div>
-        <div class="pt-3 border-t text-center">
+        <div class="pt-3 border-t dark:border-slate-700 text-center">
          <p class="text-xs text-slate-400">Rata-rata</p>
-         <p class="text-2xl font-bold text-[#0C356A]">81.7</p>
+         <p class="text-2xl font-bold text-[#0C356A] dark:text-blue-400">81.7</p>
         </div>
        </div>
       </div>
-      <div class="bg-gradient-to-b from-slate-50 to-white rounded-2xl border border-slate-200 overflow-hidden card-hover">
+      <div class="bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden card-hover">
        <div class="bg-[#1a5fb4] text-white text-center py-4">
         <p class="text-sm font-medium text-blue-200">Siklus</p>
         <p class="text-4xl font-bold">2</p>
        </div>
        <div class="p-6 space-y-3">
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Pedagogik</span><span class="font-semibold text-slate-900">87</span>
+         <span class="text-slate-500 dark:text-slate-400">Pedagogik</span><span class="font-semibold text-slate-900 dark:text-white">87</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#0C356A] h-2 rounded-full" style="width:87%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Profesional</span><span class="font-semibold text-slate-900">84</span>
+         <span class="text-slate-500 dark:text-slate-400">Profesional</span><span class="font-semibold text-slate-900 dark:text-white">84</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#1a5fb4] h-2 rounded-full" style="width:84%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Sosial</span><span class="font-semibold text-slate-900">88</span>
+         <span class="text-slate-500 dark:text-slate-400">Sosial</span><span class="font-semibold text-slate-900 dark:text-white">88</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#2874c4] h-2 rounded-full" style="width:88%"></div>
         </div>
-        <div class="pt-3 border-t text-center">
+        <div class="pt-3 border-t dark:border-slate-700 text-center">
          <p class="text-xs text-slate-400">Rata-rata</p>
-         <p class="text-2xl font-bold text-[#1a5fb4]">86.3</p>
+         <p class="text-2xl font-bold text-[#1a5fb4] dark:text-blue-400">86.3</p>
         </div>
        </div>
       </div>
-      <div class="bg-gradient-to-b from-slate-50 to-white rounded-2xl border-2 border-yellow-400 overflow-hidden card-hover relative">
+      <div class="bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-800 rounded-2xl border-2 border-yellow-400 overflow-hidden card-hover relative">
        <div class="absolute top-3 right-3 px-2 py-0.5 bg-yellow-400 text-[#0C356A] rounded text-xs font-bold">
         Terbaik
        </div>
@@ -410,24 +384,24 @@ folder" target="_blank"
        </div>
        <div class="p-6 space-y-3">
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Pedagogik</span><span class="font-semibold text-slate-900">92</span>
+         <span class="text-slate-500 dark:text-slate-400">Pedagogik</span><span class="font-semibold text-slate-900 dark:text-white">92</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#0C356A] h-2 rounded-full" style="width:92%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Profesional</span><span class="font-semibold text-slate-900">90</span>
+         <span class="text-slate-500 dark:text-slate-400">Profesional</span><span class="font-semibold text-slate-900 dark:text-white">90</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#1a5fb4] h-2 rounded-full" style="width:90%"></div>
         </div>
         <div class="flex justify-between text-sm">
-         <span class="text-slate-500">Sosial</span><span class="font-semibold text-slate-900">93</span>
+         <span class="text-slate-500 dark:text-slate-400">Sosial</span><span class="font-semibold text-slate-900 dark:text-white">93</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2">
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
          <div class="bg-[#2874c4] h-2 rounded-full" style="width:93%"></div>
         </div>
-        <div class="pt-3 border-t text-center">
+        <div class="pt-3 border-t dark:border-slate-700 text-center">
          <p class="text-xs text-slate-400">Rata-rata</p>
          <p class="text-2xl font-bold bg-gradient-to-r from-[#0C356A] to-[#2874c4] bg-clip-text text-transparent">91.7</p>
         </div>
@@ -435,8 +409,7 @@ folder" target="_blank"
       </div>
      </div>
     </div>
-   </section><!-- Model Guru -->
-   <section id="model-guru" class="py-20 px-4 sm:px-6 relative overflow-hidden">
+   </section><section id="model-guru" class="py-20 px-4 sm:px-6 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#0C356A] to-[#1a5fb4]"></div>
     <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px;"></div>
     <div class="max-w-4xl mx-auto relative z-10" data-animate>
@@ -459,7 +432,7 @@ folder" target="_blank"
         <div class="w-10 h-10 rounded-lg bg-yellow-400 flex items-center justify-center flex-shrink-0"><i data-lucide="brain" class="w-5 h-5 text-[#0C356A]"></i>
         </div>
         <div>
-         <h4 class="font-bold text-white mb-1">Reflektif &amp; Adaptif</h4>
+         <h4 class="font-bold text-white mb-1">Reflektif & Adaptif</h4>
          <p class="text-sm text-blue-200 leading-relaxed">Selalu merefleksikan praktik mengajar dan beradaptasi dengan kebutuhan zaman.</p>
         </div>
        </div>
@@ -475,7 +448,7 @@ folder" target="_blank"
         <div class="w-10 h-10 rounded-lg bg-yellow-400 flex items-center justify-center flex-shrink-0"><i data-lucide="rocket" class="w-5 h-5 text-[#0C356A]"></i>
         </div>
         <div>
-         <h4 class="font-bold text-white mb-1">Inovatif &amp; Kolaboratif</h4>
+         <h4 class="font-bold text-white mb-1">Inovatif & Kolaboratif</h4>
          <p class="text-sm text-blue-200 leading-relaxed">Mengembangkan inovasi pembelajaran dan berkolaborasi untuk kemajuan pendidikan.</p>
         </div>
        </div>
@@ -488,191 +461,298 @@ folder" target="_blank"
       </div>
      </div>
     </div>
-   </section><!-- Kontak -->
-   <section id="kontak" class="py-20 px-4 sm:px-6 bg-white">
+    
+   </section><section id="galeri" class="pt-20 pb-10 px-4 sm:px-6 bg-white dark:bg-slate-900">
+  <div class="max-w-5xl mx-auto" data-animate>
+    <div class="text-center mb-14">
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Dokumentasi</p>
+      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Galeri Foto dan Video</h2>
+      <div class="section-line mx-auto"></div>
+    </div>
+
+    <div class="mb-10 bg-slate-50 dark:bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <i data-lucide="video" class="w-5 h-5 text-red-600"></i> Video Praktik Pembelajaran (YouTube)
+      </h3>
+      <div class="relative w-full overflow-hidden rounded-xl pt-[56.25%] bg-black shadow-md">
+        <iframe 
+          class="absolute top-0 left-0 bottom-0 right-0 w-full h-full border-0" 
+          src="https://www.youtube.com/embed/5Yu8pxJsESw?si=fld8kd58cMt03tXo" 
+          title="YouTube video player" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 italic text-center">
+        **
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto1.png')">
+        <img src="g1.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto2.jpg')">
+        <img src="g2.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto3.jpg')">
+        <img src="g3.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto4.jpg')">
+        <img src="g4.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto5.jpg')">
+        <img src="g5.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+      <div class="overflow-hidden rounded-xl cursor-pointer group" onclick="openModal('foto6.jpg')">
+        <img src="g6.PNG" class="w-full h-52 object-cover group-hover:scale-110 transition duration-300">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="imageModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+  <span onclick="closeModal()" class="absolute top-5 right-8 text-white text-3xl cursor-pointer">×</span>
+  <img id="modalImg" class="max-w-[90%] max-h-[85%] rounded-lg shadow-lg">
+</div>
+
+   <section id="kontak" class="pt-10 pb-20 px-4 sm:px-6 bg-white dark:bg-slate-900">
     <div class="max-w-5xl mx-auto" data-animate>
      <div class="text-center mb-14">
-      <p class="text-sm font-semibold text-[#0C356A] tracking-widest uppercase mb-2">Mari Terhubung</p>
-      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 mb-3">Hubungi Saya</h2>
+      <p class="text-sm font-semibold text-[#0C356A] dark:text-blue-400 tracking-widest uppercase mb-2">Mari Terhubung</p>
+      <h2 class="text-3xl sm:text-4xl font-playfair font-bold text-slate-900 dark:text-white mb-3">Hubungi Saya</h2>
       <div class="section-line mx-auto"></div>
      </div>
-     <div class="grid md:grid-cols-2 gap-8"><!-- Info Kontak -->
+     <div class="grid md:grid-cols-2 gap-8">
       <div class="space-y-5">
-       <div class="bg-slate-50 rounded-xl p-5 flex gap-4 items-start card-hover">
+       <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-5 flex gap-4 items-start card-hover">
         <div class="w-10 h-10 rounded-lg bg-[#0C356A] flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 text-sm mb-0.5">Alamat Mengajar</h4>
-         <p id="contact-address-display" class="text-sm text-slate-600">SMAN 21 Surabaya</p>
+         <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-0.5">Alamat Mengajar</h4>
+         <p id="contact-address-display" class="text-sm text-slate-600 dark:text-slate-300">SMAN 21 Surabaya</p>
         </div>
        </div>
-       <div class="bg-slate-50 rounded-xl p-5 flex gap-4 items-start card-hover">
+       <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-5 flex gap-4 items-start card-hover">
         <div class="w-10 h-10 rounded-lg bg-[#1a5fb4] flex items-center justify-center flex-shrink-0"><i data-lucide="phone" class="w-5 h-5 text-white"></i>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 text-sm mb-0.5">Telepon</h4>
-         <p id="contact-phone-display" class="text-sm text-slate-600">085726415637</p>
+         <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-0.5">Telepon</h4>
+         <p id="contact-phone-display" class="text-sm text-slate-600 dark:text-slate-300">085726415637</p>
         </div>
        </div>
-       <div class="bg-slate-50 rounded-xl p-5 flex gap-4 items-start card-hover">
+       <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-5 flex gap-4 items-start card-hover">
         <div class="w-10 h-10 rounded-lg bg-[#2874c4] flex items-center justify-center flex-shrink-0"><i data-lucide="mail" class="w-5 h-5 text-white"></i>
         </div>
         <div>
-         <h4 class="font-bold text-slate-900 text-sm mb-0.5">Email</h4>
-         <p id="contact-email-display" class="text-sm text-slate-600">nafkhanfitra@gmail.com</p>
+         <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-0.5">Email</h4>
+         <p id="contact-email-display" class="text-sm text-slate-600 dark:text-slate-300">nafkhanfitra@gmail.com</p>
         </div>
-       </div><!-- Map placeholder -->
-       <div class="rounded-xl overflow-hidden border border-slate-200 h-44">
-  <iframe 
-    src="https://www.google.com/maps?q=-7.260024018089163, 112.7297291775206&hl=id&z=15&output=embed"
-    width="100%" 
-    height="100%" 
-    style="border:0;" 
-    allowfullscreen="" 
-    loading="lazy">
-  </iframe>
-</div>
-       
-      </div><!-- Form -->
-      <div class="bg-slate-50 rounded-2xl p-6 sm:p-8">
-       <h3 class="font-bold text-slate-900 text-lg mb-5">Kirim Pesan</h3>
-       <form id="contact-form" class="space-y-4">
-        <div><label for="c-name" class="block text-sm font-medium text-slate-700 mb-1">Nama</label> <input type="text" id="c-name" placeholder="Nama lengkap Anda" required class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0C356A]/30 focus:border-[#0C356A] transition">
+       </div>
+       <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 h-44">
+        <iframe src="https://www.google.com/maps?q=-7.2600,112.7500&output=embed" class="w-full h-full border-0"></iframe>
+       </div>
+      </div>
+
+      <div class="bg-slate-50 dark:bg-slate-800 p-6 sm:p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-[#0C356A] dark:text-white mb-6">Kirim Pesan</h3>
+          
+          <form class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nama</label>
+              <input type="text" placeholder="Nama lengkap Anda" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1a5fb4] focus:border-transparent transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email</label>
+              <input type="email" placeholder="email@contoh.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1a5fb4] focus:border-transparent transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Pesan</label>
+              <textarea rows="4" placeholder="Tulis pesan Anda..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1a5fb4] focus:border-transparent transition resize-none"></textarea>
+            </div>
+          </form>
         </div>
-        <div><label for="c-email" class="block text-sm font-medium text-slate-700 mb-1">Email</label> <input type="email" id="c-email" placeholder="email@contoh.com" required class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0C356A]/30 focus:border-[#0C356A] transition">
-        </div>
-        <div><label for="c-msg" class="block text-sm font-medium text-slate-700 mb-1">Pesan</label> <textarea id="c-msg" rows="4" placeholder="Tulis pesan Anda..." required class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0C356A]/30 focus:border-[#0C356A] transition resize-none"></textarea>
-        </div><button type="submit" class="btn-primary w-full text-white font-semibold py-3 rounded-lg text-sm flex items-center justify-center gap-2"> <i data-lucide="send" class="w-4 h-4"></i> Kirim Pesan </button>
-        <div id="form-success" class="hidden bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg p-3 text-center"><i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Pesan berhasil dikirim! Terima kasih.
-        </div>
-       </form>
+
+        <button type="submit" class="w-full mt-6 py-3.5 px-4 bg-[#1a5fb4] hover:bg-[#0C356A] text-white font-semibold rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
+          <i data-lucide="send" class="w-4 h-4"></i> Kirim Pesan
+        </button>
       </div>
      </div>
-    </div>
-   </section><!-- Footer -->
-   <footer class="bg-[#0C356A] text-white py-8 px-4">
-    <div class="max-w-5xl mx-auto text-center">
-     <div class="flex items-center justify-center gap-2 mb-3"><i data-lucide="graduation-cap" class="w-5 h-5"></i> <span class="font-bold">PPG Calon Guru</span>
-     </div>
-     <p class="text-blue-300 text-sm">© 2026 E-Portfolio PPG Calon Guru. Pendidikan Bermutu untuk Semua.</p>
-    </div>
-   </footer>
-  </div>
+
   <script>
-const defaultConfig = {
-  background_color: '#f8fafc',
-  surface_color: '#ffffff',
-  text_color: '#1e293b',
-  primary_action: '#0C356A',
-  secondary_action: '#1a5fb4',
-  font_family: 'Plus Jakarta Sans',
-  font_size: 16,
-  hero_title: 'PPG Calon Guru 2026',
-  hero_slogan: 'Pendidikan Bermutu untuk Semua',
-  profile_name: 'Muhammad Rifaldo Bs',
-  profile_desc: 'Calon guru profesional yang berdedikasi untuk menciptakan pembelajaran bermakna dan inovatif. Berkomitmen mengembangkan potensi setiap peserta didik melalui pendekatan yang inklusif dan berbasis teknologi.',
-  contact_address: 'SMAN 21 Surabaya',
-  contact_phone: '+62 812-3456-7890',
-  contact_email: 'muhrifaldobs@ppgcalonguru.com'
-};
-
-function applyConfig(config) {
-  const c = { ...defaultConfig, ...config };
-  const font = c.font_family || defaultConfig.font_family;
-  const baseStack = 'Plus Jakarta Sans, sans-serif';
-  const fontStack = font === 'Plus Jakarta Sans' ? baseStack : `${font}, ${baseStack}`;
-
-  document.body.style.fontFamily = fontStack;
-
-  const el = (id) => document.getElementById(id);
-  if (el('hero-title')) el('hero-title').textContent = c.hero_title;
-  if (el('hero-slogan')) el('hero-slogan').textContent = c.hero_slogan;
-  if (el('profile-name-display')) el('profile-name-display').textContent = c.profile_name;
-  if (el('profile-desc-display')) el('profile-desc-display').textContent = c.profile_desc;
-  if (el('contact-address-display')) el('contact-address-display').textContent = c.contact_address;
-  if (el('contact-phone-display')) el('contact-phone-display').textContent = c.contact_phone;
-  if (el('contact-email-display')) el('contact-email-display').textContent = c.contact_email;
-}
-
-if (window.elementSdk) {
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange: async (config) => applyConfig(config),
-    mapToCapabilities: (config) => ({
-      recolorables: [
-        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-        { get: () => config.primary_action || defaultConfig.primary_action, set: (v) => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
-        { get: () => config.secondary_action || defaultConfig.secondary_action, set: (v) => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+    // 1. DATA CONFIGURATION (4 ARTEFAK PER SIKLUS)
+    const dataSiklus = {
+      1: [
+        {
+          title: "Modul Ajar - Siklus 1",
+          desc: "Modul Ajar yang dijelaskan secara mendalam (konteks, tujuan, kelebihan, dan kekurangan).",
+          link: "https://docs.google.com/document/d/1LWuKPNRWCN7OHu9ckkWxT8P395L3-DF5/edit?usp=sharing&ouid=105721971438214882790&rtpof=true&sd=true" 
+        },
+        {
+          title: "Media Pembelajaran - Siklus 1",
+          desc: "Media interaktif pembelajaran yang menarik untuk meningkatkan pemahaman dan keterlibatan peserta didik.",
+          link: "https://drive.google.com/file/d/1xvdGgbIcmlevYEz0w_47OQRM7cge0q-2/view?usp=sharing"
+        },
+        {
+          title: "Analisis Refleksi - Siklus 1",
+          desc: "Mengevaluasi suatu pengalaman, kegiatan, atau pembelajaran secara mendalam.",
+          link: "https://docs.google.com/document/d/11_QGGCISyoLpcLe4wrs8gmvjpQAsu8zz/edit?usp=sharing&ouid=112382415657646190614&rtpof=true&sd=true"
+        },
+        {
+          title: "Lampiran 7 dan Lampiran 8 - Siklus 1",
+          desc: "Penilaian dari guru pamong terkait dengan rancangan pembelajaran yang telah disusun dan praktik mengajar yang dilakukan.",
+          link: "https://docs.google.com/document/d/1R53IvYcL0BY6Ihp4G-JGqh0EkmfU9jGM/edit?usp=sharing&ouid=112382415657646190614&rtpof=true&sd=true"
+        }
       ],
-      borderables: [],
-      fontEditable: {
-        get: () => config.font_family || defaultConfig.font_family,
-        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
-      },
-      fontSizeable: {
-        get: () => config.font_size || defaultConfig.font_size,
-        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-      }
-    }),
-    mapToEditPanelValues: (config) => new Map([
-      ['hero_title', config.hero_title || defaultConfig.hero_title],
-      ['hero_slogan', config.hero_slogan || defaultConfig.hero_slogan],
-      ['profile_name', config.profile_name || defaultConfig.profile_name],
-      ['profile_desc', config.profile_desc || defaultConfig.profile_desc],
-      ['contact_address', config.contact_address || defaultConfig.contact_address],
-      ['contact_phone', config.contact_phone || defaultConfig.contact_phone],
-      ['contact_email', config.contact_email || defaultConfig.contact_email]
-    ])
-  });
-}
+      2: [
+        {
+          title: "Modul Ajar - Siklus 2",
+          desc: "Modul Ajar yang dijelaskan secara mendalam (konteks, tujuan, kelebihan, dan kekurangan) dengan perbaikan berdasarkan refleksi siklus 1.",
+          link: "https://docs.google.com/document/d/1l1vfLKnbeGl2fS3fFDiq762u5b9jpbP2/edit?usp=sharing&ouid=105721971438214882790&rtpof=true&sd=true"
+        },
+        {
+          title: "Media Pembelajaran - Siklus 2",
+          desc: "Media interaktif pembelajaran yang menarik untuk meningkatkan pemahaman dan keterlibatan peserta didik dengan inovasi baru berdasarkan evaluasi siklus 1.",
+          link: "https://link-kamu-disini.com/siklus2-asesmen"
+        },
+        {
+          title: "Analisis Refleksi - Siklus 2",
+          desc: "Mengevaluasi suatu pengalaman, kegiatan, atau pembelajaran secara mendalam dengan fokus pada perbaikan dan inovasi berdasarkan hasil refleksi siklus 1.",
+          link: "https://link-kamu-disini.com/siklus2-jurnal"
+        },
+        {
+          title: "Lampiran 7 dan Lampiran 8 - Siklus 2",
+          desc: "Penilaian dari guru pamong terkait dengan rancangan pembelajaran yang telah disusun dan praktik mengajar yang dilakukan dengan perbaikan berdasarkan refleksi siklus 1.",
+          link: "https://link-kamu-disini.com/siklus2-video"
+        }
+      ],
+      3: [
+        {
+          title: "Modul Ajar - Siklus 3",
+          desc: "Modul Ajar yang dijelaskan secara mendalam (konteks, tujuan, kelebihan, dan kekurangan) dengan perbaikan berdasarkan refleksi siklus 1 dan 2, serta inovasi yang telah diterapkan.",
+          link: "https://docs.google.com/document/d/1LOcT5IO8BGmdifhuPXQa-hOu16GTlGiU/edit?usp=sharing&ouid=105721971438214882790&rtpof=true&sd=true"
+        },
+        {
+          title: "Media Pembelajaran - Siklus 3",
+          desc: "Media interaktif pembelajaran yang menarik untuk meningkatkan pemahaman dan keterlibatan peserta didik dengan inovasi final berdasarkan evaluasi siklus 1 dan 2.",
+          link: "https://link-kamu-disini.com/siklus3-laporan"
+        },
+        {
+          title: "Analisis Refleksi - Siklus 3",
+          desc: "Mengevaluasi suatu pengalaman, kegiatan, atau pembelajaran secara mendalam dengan fokus pada perbaikan dan inovasi final berdasarkan hasil refleksi siklus 1 dan 2.",
+          link: "https://link-kamu-disini.com/siklus3-rtl"
+        },
+        {
+          title: "Lampiran 7 dan Lampiran 8 - Siklus 3",
+          desc: "Penilaian dari guru pamong terkait dengan rancangan pembelajaran yang telah disusun dan praktik mengajar yang dilakukan dengan perbaikan berdasarkan refleksi siklus 1 dan 2, serta inovasi final yang telah diterapkan.",
+          link: "https://link-kamu-disini.com/siklus3-video"
+        }
+      ]
+    };
 
-// Navbar scroll effect
-const wrapper = document.getElementById('app-wrapper');
-const navbar = document.getElementById('navbar');
-wrapper.addEventListener('scroll', () => {
-  if (wrapper.scrollTop > 80) {
-    navbar.style.background = 'white';
-    navbar.style.boxShadow = '0 1px 8px rgba(0,0,0,0.08)';
-    navbar.querySelectorAll('#nav-links-desktop .nav-link').forEach(l => { l.style.color = '#334155'; });
-    document.getElementById('nav-title').style.color = '#0C356A';
-    document.getElementById('nav-logo-icon').style.color = '#0C356A';
-  } else {
-    navbar.style.background = 'transparent';
-    navbar.style.boxShadow = 'none';
-    navbar.querySelectorAll('#nav-links-desktop .nav-link').forEach(l => { l.style.color = 'rgba(255,255,255,0.8)'; });
-    document.getElementById('nav-title').style.color = 'white';
-    document.getElementById('nav-logo-icon').style.color = 'white';
-  }
-});
+    // 2. FUNGSI UNTUK MERENDER KONTEN DAN LINK SECARA DINAMIS
+    function renderArtefak(nomorSiklus) {
+      const container = document.getElementById('artefak-content');
+      container.innerHTML = ''; // Reset kontainer
 
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible', 'anim-fade-up');
-      observer.unobserve(entry.target);
+      const items = dataSiklus[nomorSiklus];
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 card-hover flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-slate-700 flex items-center justify-center mb-4">
+              <i data-lucide="file-text" class="w-6 h-6 text-[#0C356A] dark:text-blue-400"></i>
+            </div>
+            <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">${item.title}</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">${item.desc}</p>
+          </div>
+          <a href="${item.link}" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-[#0C356A] dark:text-blue-400 hover:gap-3 transition-all">
+            Lihat Dokumen <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+      
+      // Me-refresh icon lucide yang baru dibuat secara dinamis
+      lucide.createIcons();
     }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-// Contact form
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const success = document.getElementById('form-success');
-  success.classList.remove('hidden');
-  e.target.reset();
-  lucide.createIcons();
-  setTimeout(() => success.classList.add('hidden'), 4000);
-});
+    // 3. FUNGSI SWITCHING TABS
+    function switchSiklus(nomorSiklus) {
+      // Loop untuk mengatur gaya tombol tab aktif / non-aktif
+      for (let i = 1; i <= 3; i++) {
+        const tab = document.getElementById(`tab-siklus-${i}`);
+        if (i === nomorSiklus) {
+          tab.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 bg-[#0C356A] text-white shadow-sm";
+        } else {
+          tab.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-600";
+        }
+      }
+      renderArtefak(nomorSiklus);
+    }
 
-function closeMobile() {
-  document.getElementById('mobile-menu').classList.add('hidden');
-}
+    // Initialize default load (Siklus 1)
+    document.addEventListener("DOMContentLoaded", () => {
+      renderArtefak(1);
+      lucide.createIcons();
+    });
 
-lucide.createIcons();
-</script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ef4911b43701982',t:'MTc3NjY5MjQ4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    // 4. DARK MODE FUNCTIONS
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcons(isDark);
+    }
+
+    function updateThemeIcons(isDark) {
+      const iconDesktop = document.getElementById('theme-icon-desktop');
+      const iconMobile = document.getElementById('theme-icon-mobile');
+      const iconName = isDark ? 'moon' : 'sun';
+      iconDesktop.setAttribute('data-lucide', iconName);
+      iconMobile.setAttribute('data-lucide', iconName);
+      lucide.createIcons();
+    }
+
+    // Init Theme on Load
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      setTimeout(() => updateThemeIcons(true), 100);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setTimeout(() => updateThemeIcons(false), 100);
+    }
+
+    // 5. ANIMATION ON SCROLL INITIALIZER
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible', 'anim-fade-up');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    // 6. GALERI POPUP FUNCTIONS
+    function openModal(imgSrc) {
+      document.getElementById('modalImg').src = imgSrc;
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    function closeMobile() {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    }
+  </script>
+ </body>
 </html>
